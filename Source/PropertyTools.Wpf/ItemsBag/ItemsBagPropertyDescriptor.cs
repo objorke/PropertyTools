@@ -87,12 +87,6 @@ namespace PropertyTools.Wpf
         {
             get
             {
-                if (this.defaultDescriptor.PropertyType.IsValueType)
-                {
-                    var nt = TypeHelper.GetNullableType(this.defaultDescriptor.PropertyType);
-                    return nt;
-                }
-
                 return this.defaultDescriptor.PropertyType;
             }
         }
