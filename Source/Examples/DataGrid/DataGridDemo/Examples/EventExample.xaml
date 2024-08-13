@@ -1,0 +1,18 @@
+﻿<Window x:Class="DataGridDemo.EventExample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:PropertyTools.Wpf;assembly=PropertyTools.Wpf"
+        xmlns:dataGridDemo="clr-namespace:DataGridDemo"
+        Title="Events" Height="450" Width="900">
+    <Window.DataContext>
+        <dataGridDemo:EventExampleViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <p:DataGrid ItemsSource="{Binding ItemsSource}" CellDefinitionFactory="{Binding CellDefinitionFactory}" ControlFactory="{Binding ControlFactory}">
+            <p:DataGrid.ColumnDefinitions>
+                <p:ColumnDefinition PropertyName="Name" Header="Name" />
+                <p:ColumnDefinition PropertyName="Details" Header="Details"/>
+            </p:DataGrid.ColumnDefinitions>
+        </p:DataGrid>
+    </Grid>
+</Window>
