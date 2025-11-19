@@ -3715,7 +3715,7 @@ namespace PropertyTools.Wpf
         private bool ToggleCheck()
         {
             var element = this.GetCellElement(this.CurrentCell);
-            if (!element.IsEnabled)
+            if (element == null || !element.IsEnabled)
             {
                 return false;
             }
