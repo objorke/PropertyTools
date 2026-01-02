@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:ItemsBagDemo"
         xmlns:pt="http://propertytools.org/wpf"
-        Title="ItemsBagDemo" Height="350" Width="960">
+        Title="ItemsBagDemo" Height="600" Width="1400">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         <pt:NullToVisibilityConverter x:Key="NullToVisibilityConverter" NullVisibility="Visible" NotNullVisibility="Hidden"/>
@@ -32,9 +32,10 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <GroupBox Grid.Column="0" Header="List" Margin="4" Padding="4">
-            <ListBox  ItemsSource="{Binding Models}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox  x:Name="ModelsList" ItemsSource="{Binding Models}" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -47,29 +48,58 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </GroupBox>
-        <GroupBox Grid.Column="1" Header="WPF Binding (all  items in the list)" Margin="4" Padding="4">
-            <StackPanel DataContext="{Binding Bag}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Margin="4"/>
-                <Grid Margin="4">
-                    <TextBox x:Name="name" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Rectangle HorizontalAlignment="Right" Margin="4" Width="10" Height="10" Stroke="#275b83" Visibility="{Binding Name, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisibilityConverter}}">
-                        <Rectangle.Fill>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientBrush.GradientStops>
-                                    <GradientStopCollection>
-                                        <GradientStop Color="#8bcfe8" Offset="0"/>
-                                        <GradientStop Color="#25598c" Offset="1"/>
-                                    </GradientStopCollection>
-                                </GradientBrush.GradientStops>
-                            </LinearGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </Grid>
-                <pt:RadioButtonList Value="{Binding Color, Mode=TwoWay}" EnumType="local:Colors" Margin="4"/>
+        <GroupBox Grid.Column="1" Header="WPF Binding (selected item in the list)" Margin="4" Padding="4">
+            <StackPanel DataContext="{Binding SelectedItem, ElementName=ModelsList}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <GroupBox Header="Misc">
+                    <StackPanel>
+                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Margin="4"/>
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
+                        <pt:RadioButtonList Value="{Binding Color, Mode=TwoWay}" EnumType="local:Colors" Margin="4"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Nullable Types">
+                    <StackPanel>
+                        <TextBox Text="{Binding NullableDouble, UpdateSourceTrigger=PropertyChanged}"/>
+                        <pt:RadioButtonList Value="{Binding NullableColor, Mode=TwoWay}" EnumType="local:Colors" Margin="4"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Generic Value Types">
+                    <StackPanel>
+                        <TextBox Text="{Binding GenericInt, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding GenericString, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding NullableGenericDouble, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                </GroupBox>
             </StackPanel>
         </GroupBox>
-        <GroupBox Grid.Column="2" Header="PropertyGrid (all  items in the list)" Margin="4" Padding="4">
-            <pt:PropertyGrid SelectedObject="{Binding Bag}"/>
+        <GroupBox Grid.Column="2" Header="WPF Binding (all items in the list)" Margin="4" Padding="4">
+            <StackPanel DataContext="{Binding Bag}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <GroupBox Header="Misc">
+                    <StackPanel>
+                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Margin="4"/>
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
+                        <pt:RadioButtonList Value="{Binding Color, Mode=TwoWay}" EnumType="local:Colors" Margin="4"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Nullable Types">
+                    <StackPanel>
+                        <TextBox Text="{Binding NullableDouble, UpdateSourceTrigger=PropertyChanged}"/>
+                        <pt:RadioButtonList Value="{Binding NullableColor, Mode=TwoWay}" EnumType="local:Colors" Margin="4"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Generic Value Types">
+                    <StackPanel>
+                        <TextBox Text="{Binding GenericInt, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding GenericString, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding NullableGenericDouble, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Column="3" Header="PropertyGrid (all  items in the list)" Margin="4" Padding="4">
+            <pt:PropertyGrid SelectedObject="{Binding Bag}" TabVisibility="Collapsed"/>
         </GroupBox>
     </Grid>
 </Window>
